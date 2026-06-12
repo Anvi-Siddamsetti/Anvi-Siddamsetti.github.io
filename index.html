@@ -1,18 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siddamsetti Anvitha | Portfolio</title>
     <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(22, 30, 49, 0.7);
+        :root[data-theme="dark"] {
+            --bg-color: #0b1329;
+            --card-bg: rgba(28, 37, 65, 0.65);
             --accent-glow: #38bdf8;
             --accent-secondary: #818cf8;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(11, 19, 41, 0.85);
+            --badge-bg: #1e293b;
+        }
+
+        :root[data-theme="light"] {
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --accent-glow: #0284c7;
+            --accent-secondary: #4f46e5;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(248, 250, 252, 0.85);
+            --badge-bg: #e2e8f0;
         }
 
         * {
@@ -20,6 +34,7 @@
             margin: 0;
             padding: 0;
             scroll-behavior: smooth;
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
         body {
@@ -27,14 +42,25 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 60px;
+            padding-bottom: 80px;
+        }
+
+        /* Scroll Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-glow), var(--accent-secondary));
+            width: 0%;
+            z-index: 1000;
         }
 
         /* Navigation */
         nav {
             position: sticky;
             top: 0;
-            background: rgba(11, 15, 25, 0.8);
+            background: var(--nav-bg);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             z-index: 100;
@@ -58,42 +84,66 @@
             -webkit-text-fill-color: transparent;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
             margin-left: 20px;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
             color: var(--accent-glow);
         }
 
-        /* Layout Container */
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        /* Main Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        /* Hero Section */
         header {
-            padding: 80px 0 50px 0;
+            padding: 80px 0 40px 0;
             animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.2rem;
             margin-bottom: 10px;
-            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            background: linear-gradient(to right, var(--accent-glow), var(--accent-secondary), #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--accent-glow);
             font-weight: 600;
             margin-bottom: 15px;
@@ -121,17 +171,15 @@
         .objective {
             font-size: 1.1rem;
             color: var(--text-muted);
-            max-width: 750px;
             background: rgba(255, 255, 255, 0.02);
-            padding: 20px;
+            padding: 22px;
             border-radius: 12px;
             border-left: 4px solid var(--accent-secondary);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
         }
 
-        /* Generic Section Styling */
         section {
-            padding: 40px 0;
-            animation: fadeIn 1s ease-out;
+            padding: 50px 0 20px 0;
         }
 
         h2 {
@@ -152,21 +200,52 @@
             border-radius: 2px;
         }
 
-        /* Card Framework */
+        /* Filter Controls */
+        .filter-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filter-btn {
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-glow);
+            color: #0b1329;
+            font-weight: 600;
+            border-color: var(--accent-glow);
+        }
+
+        /* Animated Grid Framework Cards */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 12px;
+            padding: 28px;
+            border-radius: 14px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block;
+        }
+
+        .card.hide {
+            display: none;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(56, 189, 248, 0.1);
-            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-glow);
         }
 
         .card-header {
@@ -178,7 +257,7 @@
         }
 
         .card-title {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--text-main);
             font-weight: 600;
         }
@@ -187,6 +266,7 @@
             color: var(--accent-glow);
             font-size: 0.95rem;
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .card-timeline {
@@ -205,7 +285,7 @@
         }
 
         .card-body li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .tech-badge-container {
@@ -218,7 +298,7 @@
         .tech-tag {
             background: rgba(56, 189, 248, 0.1);
             color: var(--accent-glow);
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 500;
@@ -232,24 +312,24 @@
             text-decoration: none;
             font-size: 0.9rem;
             margin-top: 12px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .repo-link:hover {
             text-decoration: underline;
         }
 
-        /* Skills Grid */
+        /* Skills Layout */
         .skills-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
 
         .skill-group h3 {
             font-size: 1.05rem;
             color: var(--text-main);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -258,56 +338,87 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 20px;
         }
 
         .skill-badge {
-            background: #1e293b;
+            background: var(--badge-bg);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 6px 14px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-size: 0.9rem;
-            transition: all 0.2s;
+            cursor: default;
+            transition: all 0.2s ease;
         }
 
         .skill-badge:hover {
             background: var(--accent-glow);
-            color: var(--bg-color);
+            color: #0b1329;
             font-weight: 600;
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
         }
 
-        /* Base Animations */
+        /* Floating Top Button */
+        #scrollTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-secondary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 99;
+            transition: transform 0.2s;
+        }
+
+        #scrollTop:hover {
+            transform: scale(1.1);
+            background: var(--accent-glow);
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
+            h1 { font-size: 2.3rem; }
             .card-header { flex-direction: column; }
             .card-timeline { margin-top: 4px; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
+    <div id="progress-bar"></div>
+
     <nav>
         <div class="nav-container">
             <div class="logo">SA.dev</div>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#education">Education</a>
-                <a href="#experience">Experience</a>
-                <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#education">Education</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#skills">Skills</a>
+                </div>
+                <button class="theme-toggle" id="themeBtn">🌓 Mode</button>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <!-- Hero Header -->
+        <!-- Profile Header -->
         <header id="about">
             <h1>Siddamsetti Anvitha</h1>
             <div class="subtitle">Computer Science Undergraduate &amp; Full Stack Developer</div>
@@ -358,7 +469,7 @@
                         <li>Designed Flask APIs for processing resumes and job descriptions.</li>
                         <li>Improved workflow efficiency through backend automation.</li>
                     </ul>
-                    <a href="https://github.com/Anvi-Siddamsetti/TalentAlign-AI" target="_blank" class="repo-link">⚙️ View TalentAlign AI Project</a>
+                    <a href="https://github.com/Anvi-Siddamsetti/TalentAlign-AI" target="_blank" class="repo-link">⚙️ View TalentAlign AI Project Code</a>
                     <div class="tech-badge-container">
                         <span class="tech-tag">Python</span>
                         <span class="tech-tag">Flask</span>
@@ -369,12 +480,18 @@
             </div>
         </section>
 
-        <!-- Projects -->
+        <!-- Projects with Dynamic Filters -->
         <section id="projects">
             <h2>Featured Projects</h2>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="filter-btn" onclick="filterProjects('fullstack')">Full Stack</button>
+                <button class="filter-btn" onclick="filterProjects('ai-backend')">AI &amp; Backend</button>
+            </div>
 
             <!-- Project 1 -->
-            <div class="card">
+            <div class="card" data-category="fullstack">
                 <div class="card-header">
                     <div>
                         <div class="card-title">Career Compass &mdash; Placement Management Portal</div>
@@ -400,7 +517,7 @@
             </div>
 
             <!-- Project 2 -->
-            <div class="card">
+            <div class="card" data-category="fullstack">
                 <div class="card-header">
                     <div>
                         <div class="card-title">Autism Support System &mdash; Full Stack Application</div>
@@ -427,7 +544,7 @@
             </div>
 
             <!-- Project 3 -->
-            <div class="card">
+            <div class="card" data-category="ai-backend">
                 <div class="card-header">
                     <div>
                         <div class="card-title">AI Digital Twin &mdash; RAG System</div>
@@ -449,7 +566,7 @@
             </div>
         </section>
 
-        <!-- Skills -->
+        <!-- Skills Grid Section -->
         <section id="skills">
             <h2>Technical Skills</h2>
             <div class="skills-section">
@@ -478,7 +595,7 @@
                 </div>
 
                 <div class="skill-group">
-                    <h3>Databases &amp; Tools</h3>
+                    <h3>DevOps &amp; Tools</h3>
                     <div class="skill-badges">
                         <span class="skill-badge">MySQL</span>
                         <span class="skill-badge">MongoDB</span>
@@ -493,29 +610,76 @@
 
         <!-- Achievements & Certifications -->
         <section id="achievements">
-            <h2>Achievements &amp; Certifications</h2>
+            <h2>Achievements &amp; Honors</h2>
             <div class="card">
-                <div class="card-subtitle" style="font-size:1.1rem; font-weight:600;">🏆 Honors</div>
+                <div class="card-subtitle" style="font-size:1.1rem; font-weight:600;">🏆 Competitive Milestones</div>
                 <div class="card-body" style="margin-top:10px;">
                     <ul>
-                        <li><strong>1st Place – Aptpath AI Resume Matching Project:</strong> Secured top position building an NLP ranking engine.</li>
-                        <li><strong>Top 10 Finalist – GITAM Hackathon:</strong> Developed a voice assistant for automated CLI operations.</li>
-                        <li><strong>GSSoC Contributor:</strong> Actively committed fixes to open-source software structures.</li>
+                        <li><strong>1st Place – Aptpath AI Resume Matching Project:</strong> Secured first rank building an automated resume screening pipeline.</li>
+                        <li><strong>Top 10 Finalist – GITAM Hackathon:</strong> Built a specialized voice automation assistant framework.</li>
+                        <li><strong>GirlScript Summer of Code Contributor:</strong> Fixed core software system bugs in shared international repositories.</li>
                     </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-subtitle" style="font-size:1.1rem; font-weight:600;">📜 Industry Certifications</div>
-                <div class="card-body" style="margin-top:10px;">
-                    <div class="tech-badge-container">
-                        <span class="tech-tag" style="padding: 6px 12px;">DSA – Smart Interviews (2025)</span>
-                        <span class="tech-tag" style="padding: 6px 12px;">MongoDB Fundamentals (2025)</span>
-                        <span class="tech-tag" style="padding: 6px 12px;">Node.js Backend Development (2025)</span>
-                    </div>
                 </div>
             </div>
         </section>
     </div>
 
+    <button id="scrollTop" onclick="scrollUp()">▲</button>
+
+    <!-- Interactive Portfolio Logic Script -->
+    <script>
+        // Theme Toggle Functionality
+        const themeBtn = document.getElementById('themeBtn');
+        const htmlElement = document.documentElement;
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+        });
+
+        // Interactive Project Categorization Filtering Logic
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('#projects .card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Set active button styling
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.textContent.toLowerCase().replace(' & ', '-') === category || (category === 'all' && btn.textContent === 'All')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Filter implementation
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hide');
+                } else {
+                    card.classList.add('hide');
+                }
+            });
+        }
+
+        // Window Scroll Indicator Bar and Top Arrow Event Tracking
+        const progressBar = document.getElementById('progress-bar');
+        const topBtn = document.getElementById('scrollTop');
+
+        window.onscroll = function() {
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (window.pageYOffset / totalHeight) * 100;
+            progressBar.style.width = progress + '%';
+
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topBtn.style.display = "flex";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        function scrollUp() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
