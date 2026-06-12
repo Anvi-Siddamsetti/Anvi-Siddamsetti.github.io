@@ -3,38 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siddamsetti Anvitha</title>
+    <title>Siddamsetti Anvitha | Portfolio</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; }
-        h1 { color: #111; }
-        h2 { color: #0066cc; margin-top: 30px; }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .projects-list {
+            list-style: none;
+        }
+
+        .project-item {
+            background: var(--card-bg);
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-left-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(56, 189, 248, 0.15);
+            border-left-color: #818cf8;
+        }
+
+        .project-item strong {
+            color: var(--text-main);
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .project-item span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .links-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-github {
+            background: #24292e;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-github:hover {
+            background: #333a42;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-linkedin {
+            background: #0077b5;
+            color: white;
+        }
+
+        .btn-linkedin:hover {
+            background: #008cd7;
+            box-shadow: 0 0 15px rgba(0, 119, 181, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Siddamsetti Anvitha</h1>
-    <p><strong>Computer Science Undergraduate</strong></p>
 
-    <h2>About Me</h2>
-    <p>
-        Computer Science student passionate about full-stack development, 
-        backend systems, APIs, and problem-solving.
-    </p>
+    <div class="container">
+        <h1>Siddamsetti Anvitha</h1>
+        <div class="subtitle">Computer Science Undergraduate</div>
 
-    <h2>Projects</h2>
-    <ul>
-        <li><strong>Career Compass</strong> – Placement Management Portal</li>
-        <li><strong>Autism Support System</strong> – Full Stack Application</li>
-        <li><strong>AI Digital Twin</strong> – RAG System</li>
-    </ul>
+        <h2>About Me</h2>
+        <p>
+            Computer Science student passionate about building scalable full-stack applications, 
+            robust backend systems, intuitive APIs, and intelligent problem-solving frameworks.
+        </p>
 
-    <h2>Connect With Me</h2>
-    <p>
-        🔗 <a href="https://github.com/Anvi-Siddamsetti" target="_blank">GitHub Profile</a><br>
-        💼 <a href="https://linkedin.com/in/siddamsetti-anvitha-947413293" target="_blank">LinkedIn Profile</a>
-    </p>
+        <h2>Featured Projects</h2>
+        <ul class="projects-list">
+            <li class="project-item">
+                <strong>Career Compass</strong>
+                <span>Placement Management Portal &bull; Full Stack</span>
+            </li>
+            <li class="project-item">
+                <strong>Autism Support System</strong>
+                <span>Interactive Assistance Application &bull; Full Stack</span>
+            </li>
+            <li class="project-item">
+                <strong>AI Digital Twin</strong>
+                <span>Retrieval-Augmented Generation (RAG) System &bull; AI/Backend</span>
+            </li>
+        </ul>
+
+        <h2>Connect</h2>
+        <div class="links-container">
+            <a href="https://github.com/Anvi-Siddamsetti" target="_blank" class="btn btn-github">GitHub Profile</a>
+            <a href="https://linkedin.com/in/siddamsetti-anvitha-947413293" target="_blank" class="btn btn-linkedin">LinkedIn Connection</a>
+        </div>
+    </div>
+
 </body>
 </html>
